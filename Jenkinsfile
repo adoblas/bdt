@@ -1,5 +1,5 @@
+@Library('libpipelines@master') _
 hose {
     DEV = { config ->        
-        doCompile(config)
      }
 }
