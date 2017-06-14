@@ -1,4 +1,4 @@
-@Library('libpipelines@master') _
+@Library('libpipelines@feature/newSh') _
 
 hose {
     EMAIL = 'qa'
