@@ -104,3 +104,75 @@ _Examples:_
     Scenario: Dummy scenario
           And I wait '${SECS}' seconds
 `
+
+- **LoopTagAspect**
+
+An AspectJ aspect that allows looping over scenarios. Using this tag before an scenario will convert this scenario into an scenario outline, changing parameter defined "NAME" for every element in the environment variable list recived.
+
+` @loop(LIST_PARAM,NAME)`
+
+Being LIST_PARAM: `-DLIST_PARAM=elem1,elem2,elem3`
+
+_Examples:_
+
+`
+  @loop(AGENT_LIST,VAR_NAME)
+  Scenario: write <VAR_NAME> a file the final result of the scenario.
+    Given I run 'echo <VAR_NAME> >> testOutput.txt' locally
+`
+
+`
+  @loop(AGENT_LIST,VAR_NAME)
+  Scenario: With scenarios outlines and datatables
+    Given I create file 'testSOATtag<VAR_NAME.id>.json' based on 'schemas/simple<VAR_NAME>.json' as 'json' with:
+      | $.a | REPLACE | @{JSON.schemas/empty.json}     | object   |
+    Given I save '@{JSON.testSOATtag<VAR_NAME.id>.json}' in variable 'VAR'
+    Then I run '[ "!{VAR}" = "{"a":{}}" ]' locally
+`
+
+`-DAGENT_LIST=1,2`
+
+More examples can be found in [Loop feature](src/test/resources/features/loopTag.feature)
+
+
+- **Backgrount Tag**
+
+An AspectJ aspect included in loopTagAspect that allows conditional backgrounds. Its used inside the Background label as can be seen in the examples:
+
+` @background(VAR)`
+
+Being VAR: `-DVAR=value`
+
+_Examples:_
+
+`
+  Background:
+  @background(WAIT)
+    Given I run '[ "SHOULD_RUN" = "SHOULD_RUN" ]' locally
+  @background(WAIT_NO)
+    Given I run '[ "SHOULD_RUN" = "FAIL_RUN" ]' locally
+  @background(default)
+    Given I run '[ "SHOULD_RUN" = "SHOULD_RUN" ]' locally
+`
+
+`
+   Background:
+     Given I run '[ "SHOULD_RUN" = "SHOULD_RUN" ]' locally
+     Given I run '[ "SHOULD_RUN" = "SHOULD_RUN" ]' locally
+   @background(WAIT_NO)
+     Given I run '[ "SHOULD_RUN" = "FAIL_RUN" ]' locally
+`
+
+`
+  Background:
+  @background(default)
+    Given I run '[ "SHOULD_RUN" = "SHOULD_RUN" ]' locally
+  @background(WAIT_NO)
+    Given I run '[ "SHOULD_RUN" = "FAIL_RUN" ]' locally
+  @background(default)
+    Given I run '[ "SHOULD_RUN" = "SHOULD_RUN" ]' locally
+`
+
+If environment variable is defined the code above the tag would be included as part of the backgroud, if not, it will be omitted. If the value its "default", it will be always included.
+
+More examples can be found in [Backgorund feature](src/test/resources/features/backgroundTag1.feature)
