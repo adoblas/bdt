@@ -173,7 +173,7 @@ If the test above its executed *WITH* `-DWAIT_NO=value` then the background will
      Given I run '[ "SHOULD_RUN" = "SHOULD_RUN" ]' locally
 ```
 
-in the other hand, if it is executed *WITHOUT* the environment variable, the background will be:
+On the other hand, if it is executed *WITHOUT* the environment variable, the background will be:
 
 ```
    Background:
