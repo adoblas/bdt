@@ -88,19 +88,19 @@ public class LoopIncludeTagAspect {
                 listParams = lines.get(s).substring((lines.get(s).lastIndexOf("(") + 1), (lines.get(s).length()) - 1);
                 if (System.getProperty(listParams) != null) {
                     lines.remove(s);
-                } else {
-                    if (listParams.matches("default")) {
-                        lines.remove(s);
-                        while (!lines.get(s).toUpperCase().contains("SCENARIO") && !lines.get(s).matches(".*@[^\\{].*")) {
-                            s++;
-                        }
-                    } else {
-                        lines.remove(s);
-                        while (!lines.get(s).toUpperCase().contains("SCENARIO") && !lines.get(s).matches(".*@[^\\{].*")) {
-                            lines.remove(s);
-                        }
+                    while (!lines.get(s).toUpperCase().contains("/BACKGROUND")) {
+                        s++;
                     }
-                    s--;
+                    lines.remove(s--);
+                } else {
+                    lines.remove(s);
+                    while (!lines.get(s).toUpperCase().contains("SCENARIO") && !lines.get(s).matches(".*@[^\\{].*") &&
+                           !lines.get(s).toUpperCase().contains("/BACKGROUND")) {
+                        lines.remove(s);
+                    }
+                    if (lines.get(s).toUpperCase().contains("@/BACKGROUND")) {
+                        lines.remove(s--);
+                    }
                 }
             }
         }
