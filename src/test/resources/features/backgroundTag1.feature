@@ -1,12 +1,12 @@
 Feature: Backgorund aspect tests
 
   Background:
-  @background(WAIT)
+  @BACKGROUND(WAIT)
     Given I run '[ "SHOULD_RUN_WAIT" = "SHOULD_RUN_WAIT" ]' locally
-  @/background
-  @background(WAIT_NO)
+  @/BACKGROUND
+  @BACKGROUND(WAIT_NO)
     Given I run '[ "SHOULD_RUN" = "FAIL_RUN" ]' locally
-  @/background
+  @/BACKGROUND
     Given I run '[ "SHOULD_RUN" = "SHOULD_RUN" ]' locally
 
 

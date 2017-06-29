@@ -59,7 +59,7 @@ public class LoopIncludeTagAspect {
 
         for (int s = 0; s < lines.size(); s++) {
             String[] elems;
-            if (lines.get(s).matches("\\s*@loop.*")) {
+            if (lines.get(s).toUpperCase().matches("\\s*@LOOP.*")) {
                 listParams = lines.get(s).substring((lines.get(s).lastIndexOf("(") + 1), (lines.get(s).length()) - 1).split(",")[0];
                 try {
                     elems = System.getProperty(listParams).split(",");
@@ -84,7 +84,7 @@ public class LoopIncludeTagAspect {
                 exampleLines(paramReplace, elems, lines,  s + 1);
                 s = s + elems.length;
             }
-            if (lines.get(s).matches("\\s*@background.*")) {
+            if (lines.get(s).toUpperCase().matches("\\s*@BACKGROUND.*")) {
                 listParams = lines.get(s).substring((lines.get(s).lastIndexOf("(") + 1), (lines.get(s).length()) - 1);
                 if (System.getProperty(listParams) != null) {
                     lines.remove(s);
