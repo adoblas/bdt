@@ -1,4 +1,4 @@
-@Library('libpipelines@feature/gradle') _
+@Library('libpipelines@master') _
 
 hose {
     EMAIL = 'qa'
