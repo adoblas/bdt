@@ -44,8 +44,9 @@ public class IncludeTagAspect {
     }
 
     /**
-     * @param resource
-     * @throws Throwable
+     * @param resource resource containing feature
+     * @return String parsed feature after aspect applied
+     * @throws Throwable exception
      */
     @Around(value = "addIncludeTagPointcutScenario(resource)")
     public String aroundAddIncludeTagPointcutScenario(Resource resource) throws Throwable {
@@ -114,6 +115,7 @@ public class IncludeTagAspect {
 
     /**
      * @param s A string with the tag line that will be filtered and trimmed to get exactly the name of the feature
+     * @return String Feature name
      */
     public String getFeatureName(String s) {
 

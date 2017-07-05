@@ -39,8 +39,9 @@ public class LoopTagAspect {
     }
 
     /**
-     * @param resource
-     * @throws Throwable
+     * @param resource resource containing feature
+     * @return String parsed feature after aspect applied
+     * @throws Throwable exception
      */
     @Around(value = "addLoopTagPointcutScenario(resource)")
     public String aroundAddLoopTagPointcutScenario(Resource resource) throws Throwable {
