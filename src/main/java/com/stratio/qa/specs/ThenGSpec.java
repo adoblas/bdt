@@ -619,7 +619,7 @@ public class ThenGSpec extends BaseGSpec {
      * @param zNode    path at zookeeper
      * @param document expected content of znode
      */
-    @Then("^the  zNode '(.+?)' exists( and contains '(.+?)')?$")
+    @Then("^the zNode '(.+?)' exists( and contains '(.+?)')?$")
     public void checkZnodeExists(String zNode, String foo, String document)  throws Exception {
         if (document == null) {
             String breakpoint = commonspec.getZookeeperSecClient().zRead(zNode);

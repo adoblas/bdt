@@ -176,27 +176,11 @@ public class HookGSpec extends BaseGSpec {
                 .build()));
     }
 
-    @After(order = 10, value = "@rest")
-    public void restClientTeardown() throws IOException {
-        commonspec.getLogger().debug("Shutting down REST client");
-        commonspec.getClient().close();
-    }
-
     @After(order = 10)
     public void remoteSSHConnectionTeardown() throws Exception {
         if (commonspec.getRemoteSSHConnection() != null) {
             commonspec.getLogger().debug("Closing SSH remote connection");
             commonspec.getRemoteSSHConnection().getSession().disconnect();
-        }
-    }
-
-    @After(order = 10)
-    public void zkConnectionTeardown() throws Exception {
-        if (!"".equals(System.getProperty("ZOOKEEPER_HOSTS", ""))) {
-            commonspec.getLogger().debug("Closing zookeeper connection");
-            if (commonspec.getZookeeperSecClient().isConnected()) {
-                commonspec.getZookeeperSecClient().disconnect();
-            }
         }
     }
 }
