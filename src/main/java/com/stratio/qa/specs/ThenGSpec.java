@@ -649,7 +649,7 @@ public class ThenGSpec extends BaseGSpec {
      *
      * @param topic_name name of topic
      */
-    @Then("^A kafka topic named '(.+?)' not exists")
+    @Then("^A kafka topic named '(.+?)' does not exist")
     public void kafkaTopicNotExist(String topic_name) throws KeeperException, InterruptedException {
         assert !commonspec.getKafkaUtils().listTopics().contains(topic_name) : "There is no topic with that name";
     }

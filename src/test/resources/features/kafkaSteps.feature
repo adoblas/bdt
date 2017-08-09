@@ -3,9 +3,6 @@ Feature: Kafka steps test
   Scenario: Connect to kafka
     Given I connect to kafka at '${ZOOKEEPER_HOSTS}' using path 'brokers/topics'
 
-  Scenario: A kafka topic does exist
-    Then A kafka topic named 'testqa' exists
-
   Scenario: Send message to kafka topic
     Given I send a message 'hello' to the kafka topic named 'testqa'
     Then The kafka topic 'testqa' has a message containing 'hello'
@@ -15,4 +12,4 @@ Feature: Kafka steps test
 
   Scenario: A kafka topic does not exist
     When I delete a Kafka topic named 'testqa'
-    Then A kafka topic named 'testqa' not exists
+    Then A kafka topic named 'testqa' does not exist
