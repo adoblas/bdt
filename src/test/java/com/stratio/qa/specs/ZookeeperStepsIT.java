@@ -25,7 +25,7 @@ import org.testng.annotations.Test;
 public class ZookeeperStepsIT extends BaseTest {
 
     @Test
-    public void kafkaStepsTest() throws Exception {
+    public void zookeeperStepsTest() throws Exception {
         new CucumberRunner(this.getClass()).runCukes();
     }
 }
