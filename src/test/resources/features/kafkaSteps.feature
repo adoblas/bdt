@@ -5,6 +5,7 @@ Feature: Kafka steps test
 
   Scenario: Send message to kafka topic
     Given I send a message 'hello' to the kafka topic named 'testqa'
+    Then A kafka topic named 'testqa' exists
     Then The kafka topic 'testqa' has a message containing 'hello'
 
   Scenario: Increase partitions in kafka topic
