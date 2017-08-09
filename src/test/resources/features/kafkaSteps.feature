@@ -1,7 +1,7 @@
 Feature: Kafka steps test
 
   Scenario: Connect to kafka
-    Given I connect to kafka at '${ZOOKEEPER_HOSTS}' using path '/brokers/topics'
+    Given I connect to kafka at '${ZOOKEEPER_HOSTS}' using path 'brokers/topics'
 
   Scenario: A kafka topic does exist
     Then A kafka topic named 'testqa' exists
