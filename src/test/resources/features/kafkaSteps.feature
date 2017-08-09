@@ -15,4 +15,4 @@ Feature: Kafka steps test
 
   Scenario: A kafka topic does not exist
     When I delete a Kafka topic named 'testqa'
-    Then A kafka topic named 'testWrong' not exists
+    Then A kafka topic named 'testqa' not exists
