@@ -176,6 +176,12 @@ public class HookGSpec extends BaseGSpec {
                 .build()));
     }
 
+    @After(order = 10, value = "@rest")
+    public void restClientTeardown() throws IOException {
+        commonspec.getLogger().debug("Shutting down REST client");
+        commonspec.getClient().close();
+    }
+
     @After(order = 10)
     public void remoteSSHConnectionTeardown() throws Exception {
         if (commonspec.getRemoteSSHConnection() != null) {

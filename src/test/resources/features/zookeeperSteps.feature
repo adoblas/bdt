@@ -1,10 +1,9 @@
-@rest
 Feature: Zookeeper steps test
 
   Scenario: Connection to Zk
     Given I connect to Zookeeper at '${ZOOKEEPER_HOSTS}'
 
-  Scenario: zookeeper node does not exist
+  Scenario: zookeeper node does exist
     Then the zNode '/zookeeper' exists
 
   Scenario: create zookeeper node and check existance
@@ -28,6 +27,4 @@ Feature: Zookeeper steps test
   Scenario: create zookeeper node and check existance
     Then I create the zNode '/testnonephemeraldata' with content 'midata' which IS ephemeral
     Then the zNode '/testnonephemeraldata' exists and contains 'midata'
-
-  Scenario: zookeeper
     Then I disconnect from Zookeeper
