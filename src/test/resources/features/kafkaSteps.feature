@@ -4,7 +4,6 @@ Feature: Kafka steps test
     Given I connect to kafka at '${ZOOKEEPER_HOSTS}' using path 'brokers/topics'
 
   Scenario: Send message to kafka topic
-    Given I create a Kafka topic named 'testqa'
     Given I send a message 'hello' to the kafka topic named 'testqa'
     Then The kafka topic 'testqa' has a message containing 'hello'
 
@@ -14,4 +13,5 @@ Feature: Kafka steps test
   Scenario: A kafka topic deletion
     Then A kafka topic named 'testqa' exists
     When I delete a Kafka topic named 'testqa'
-    Then A kafka topic named 'testqa' does not exist
+    Then A kafka topic named 'admin/delete_topics/testqa' exists
+    Then A kafka topic named 'nonExistantTopic' does not exist

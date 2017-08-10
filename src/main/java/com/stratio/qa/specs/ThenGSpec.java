@@ -641,7 +641,7 @@ public class ThenGSpec extends BaseGSpec {
      */
     @Then("^A kafka topic named '(.+?)' exists")
     public void kafkaTopicExist(String topic_name) throws KeeperException, InterruptedException {
-        assert commonspec.getKafkaUtils().listTopics().contains(topic_name) : "There is no topic with that name";
+        assert commonspec.getKafkaUtils().getZkUtils().pathExists("/" + topic_name) : "There is no topic with that name";
     }
 
     /**
@@ -651,7 +651,7 @@ public class ThenGSpec extends BaseGSpec {
      */
     @Then("^A kafka topic named '(.+?)' does not exist")
     public void kafkaTopicNotExist(String topic_name) throws KeeperException, InterruptedException {
-        assert !commonspec.getKafkaUtils().listTopics().contains(topic_name) : "There is no topic with that name";
+        assert !commonspec.getKafkaUtils().getZkUtils().pathExists("/" + topic_name) : "There is a topic with that name";
     }
 
 
