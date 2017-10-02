@@ -26,7 +26,3 @@ Feature: Every scenario should be ignored, not failing the tests
 #  @include(feature:non_existant.feature,scenario:non_existant_scenario)
   Scenario: Ignoring include tag so non scenanrio is included.
     Given I run '[ "SHOULD_RUN" = "SHOULD_RUN" ]' locally
-
-  @ignore @tillfixed(QATM-34)
-  Scenario: Ignored scenario (too complex)
-    Given I run '[ "THIS SHOULDNT HAVE BEEN RUN" = "!UNEXISTANT_VAR" ]' locally
