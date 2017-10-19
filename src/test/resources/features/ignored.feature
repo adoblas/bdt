@@ -12,7 +12,7 @@ Feature: Every scenario should be ignored, not failing the tests
   Scenario: Ignored scenario (too complex)
     Given I run '[ "THIS SHOULDNT HAVE BEEN RUN" = "!UNEXISTANT_VAR" ]' locally
 
-#  @ignore @tillfixed(QA-357)
+  @ignore @tillfixed(QA-357)
 #  Scenario: Ignored scenario (till ticket fixed)
 #    Given I run '[ "THIS SHOULDNT HAVE BEEN RUN" = "" ]' locally
 
