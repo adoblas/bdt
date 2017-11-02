@@ -18,7 +18,7 @@ package com.stratio.qa.specs;
 
 import com.ning.http.client.AsyncHttpClient;
 import com.ning.http.client.AsyncHttpClientConfig;
-import com.stratio.qa.exceptions.DBException;
+import com.stratio.qa.exceptions.SuppressableException;
 import com.stratio.qa.utils.ThreadProperty;
 import com.thoughtworks.selenium.SeleniumException;
 import cucumber.api.Scenario;
@@ -37,10 +37,8 @@ import org.openqa.selenium.remote.internal.HttpClientFactory;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.net.UnknownHostException;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.concurrent.TimeUnit;
 
 import static org.testng.Assert.fail;
@@ -90,9 +88,9 @@ public class HookGSpec extends BaseGSpec {
     }
 
     @Before
-    public void quit_if_tagged_scenario_failed(Scenario scenario) {
-        if (!isTagged(scenario) && prevScenarioFailed) {
-            throw new IllegalStateException("An important scenario has failed! TESTS EXECUTION ABORTED!");
+    public void quit_if_tagged_scenario_failed(Scenario scenario) throws Throwable {
+        if (prevScenarioFailed) {
+            throw new SuppressableException("An important scenario has failed! TESTS EXECUTION ABORTED!", true);
         }
     }
 

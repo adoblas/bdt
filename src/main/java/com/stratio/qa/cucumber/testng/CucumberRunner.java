@@ -143,6 +143,7 @@ public class CucumberRunner {
         runtime.run();
 
         if (!runtime.getErrors().isEmpty()) {
+            runtime.getErrors().remove(runtime.getErrors().size() - 1);
             logger.error ("Got {} exceptions", runtime.getErrors());
             throw new CucumberException(runtime.getErrors().get(0));
         }
