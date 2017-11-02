@@ -83,15 +83,17 @@ public class HookGSpec extends BaseGSpec {
     public void watch_this_tagged_scenario(Scenario scenario) throws Exception {
         if (isTagged(scenario)) {
             boolean isFailed = scenario.isFailed();
-            if (isFailed)
+            if (isFailed) {
                 prevScenarioFailed = isFailed;
+            }
         }
     }
 
     @Before
     public void quit_if_tagged_scenario_failed(Scenario scenario) {
-        if (!isTagged(scenario) && prevScenarioFailed)
+        if (!isTagged(scenario) && prevScenarioFailed) {
             throw new IllegalStateException("An important scenario has failed! TESTS EXECUTION ABORTED!");
+        }
     }
 
     /**
