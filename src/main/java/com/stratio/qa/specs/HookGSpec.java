@@ -21,6 +21,7 @@ import com.ning.http.client.AsyncHttpClientConfig;
 import com.stratio.qa.exceptions.DBException;
 import com.stratio.qa.utils.ThreadProperty;
 import com.thoughtworks.selenium.SeleniumException;
+import cucumber.api.Scenario;
 import cucumber.api.java.After;
 import cucumber.api.java.Before;
 import org.openqa.selenium.Dimension;
@@ -37,6 +38,7 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.UnknownHostException;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.concurrent.TimeUnit;
@@ -55,6 +57,10 @@ public class HookGSpec extends BaseGSpec {
 
     public static final int SCRIPT_TIMEOUT = 30;
 
+    private static final String TAG = "@important";
+
+    private static boolean prevScenarioFailed = false;
+
     /**
      * Default constructor.
      *
@@ -72,6 +78,21 @@ public class HookGSpec extends BaseGSpec {
         commonspec.getExceptions().clear();
     }
 
+
+    @After
+    public void watch_this_tagged_scenario(Scenario scenario) throws Exception {
+        if (isTagged(scenario)) {
+            boolean isFailed = scenario.isFailed();
+            if (isFailed)
+                prevScenarioFailed = isFailed;
+        }
+    }
+
+    @Before
+    public void quit_if_tagged_scenario_failed(Scenario scenario) {
+        if (!isTagged(scenario) && prevScenarioFailed)
+            throw new IllegalStateException("An important scenario has failed! TESTS EXECUTION ABORTED!");
+    }
 
     /**
      * Connect to selenium.
@@ -188,5 +209,10 @@ public class HookGSpec extends BaseGSpec {
             commonspec.getLogger().debug("Closing SSH remote connection");
             commonspec.getRemoteSSHConnection().getSession().disconnect();
         }
+    }
+
+    private boolean isTagged(Scenario scenario) {
+        Collection<String> tags = scenario.getSourceTagNames();
+        return tags.contains(TAG);
     }
 }
