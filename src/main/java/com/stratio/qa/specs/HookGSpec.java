@@ -57,7 +57,11 @@ public class HookGSpec extends BaseGSpec {
 
     private static final String TAG = "@important";
 
+    private static final String customTAG = "@notimportant";
+
     private static boolean prevScenarioFailed = false;
+
+    private static final String quietasdefault = System.getProperty("quietasdefault", "true");
 
     /**
      * Default constructor.
@@ -79,10 +83,19 @@ public class HookGSpec extends BaseGSpec {
 
     @After
     public void watch_this_tagged_scenario(Scenario scenario) throws Exception {
-        if (isTagged(scenario)) {
-            boolean isFailed = scenario.isFailed();
-            if (isFailed) {
-                prevScenarioFailed = isFailed;
+        if (quietasdefault.equals("false")) {
+            if (!isTaggedAsNotImportant(scenario)) {
+                boolean isFailed = scenario.isFailed();
+                if (isFailed) {
+                    prevScenarioFailed = isFailed;
+                }
+            }
+        } else {
+            if (isTagged(scenario)) {
+                boolean isFailed = scenario.isFailed();
+                if (isFailed) {
+                    prevScenarioFailed = isFailed;
+                }
             }
         }
     }
@@ -214,5 +227,10 @@ public class HookGSpec extends BaseGSpec {
     private boolean isTagged(Scenario scenario) {
         Collection<String> tags = scenario.getSourceTagNames();
         return tags.contains(TAG);
+    }
+
+    private boolean isTaggedAsNotImportant(Scenario scenario) {
+        Collection<String> tags = scenario.getSourceTagNames();
+        return tags.contains(customTAG);
     }
 }

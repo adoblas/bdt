@@ -204,3 +204,19 @@ Feature: Example Quit after tag
     When fail
     Then something
   ```
+
+In addition, this tag can be used the other way. By defining the property ```-Dquietasdefault=false``` every scenario turns "important" so a ```@notimportant``` tag can be used to prevent fast failure like this:
+
+```
+Feature: Example Quit after tag
+
+ Scenario: Keeps executing next scenario
+     Given something
+     When fail
+
+  @notimportant
+  Scenario: important and fails
+    Given something
+    When fail
+    Then something
+  ```
