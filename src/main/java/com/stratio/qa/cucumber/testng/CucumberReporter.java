@@ -604,12 +604,11 @@ public class CucumberReporter implements Formatter, Reporter {
                     element.setAttribute(STATUS, "FAIL");
                     StringWriter stringWriter = new StringWriter();
                     if (failed.getErrorMessage().contains("An important scenario has failed!")) {
-                        Element exception = createException(doc, "An important scenario has failed! TESTS EXECUTION ABORTED!",
-                                stringBuilder.toString(), stringWriter.toString());
-                        element.appendChild(exception);
-                        Element exceptionJunit = createExceptionJunit(docJunit, "An important scenario has failed! TESTS EXECUTION ABORTED!",
-                                stringBuilder.toString(), stringWriter.toString());
-                        Junit.appendChild(exceptionJunit);
+                        element.setAttribute(STATUS, "SKIP");
+                        Element skippedElementJunit = docJunit.createElement("skipped");
+                        Junit.appendChild(skippedElementJunit);
+                        Element systemOut = systemOutPrintJunit(docJunit, stringBuilder.toString());
+                        Junit.appendChild(systemOut);
                     } else {
                         failed.getError().printStackTrace(new PrintWriter(stringWriter));
                         Element exception = createException(doc, failed.getError().getClass().getName(),
