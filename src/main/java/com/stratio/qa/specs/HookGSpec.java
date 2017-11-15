@@ -19,6 +19,7 @@ package com.stratio.qa.specs;
 import com.ning.http.client.AsyncHttpClient;
 import com.ning.http.client.AsyncHttpClientConfig;
 import com.stratio.qa.exceptions.SuppressableException;
+import com.stratio.qa.utils.CukesGHooks;
 import com.stratio.qa.utils.ThreadProperty;
 import com.thoughtworks.selenium.SeleniumException;
 import cucumber.api.Scenario;
@@ -63,6 +64,8 @@ public class HookGSpec extends BaseGSpec {
 
     private static final String quietasdefault = System.getProperty("quietasdefault", "true");
 
+    public static boolean loggerEnabled = true;
+
     /**
      * Default constructor.
      *
@@ -88,12 +91,14 @@ public class HookGSpec extends BaseGSpec {
                 boolean isFailed = scenario.isFailed();
                 if (isFailed) {
                     prevScenarioFailed = isFailed;
+                    loggerEnabled = false;
                 }
             }
         } else {
             if (isTagged(scenario)) {
                 boolean isFailed = scenario.isFailed();
                 if (isFailed) {
+                    loggerEnabled = false;
                     prevScenarioFailed = isFailed;
                 }
             }

@@ -19,6 +19,7 @@ package com.stratio.qa.utils;
 import com.stratio.qa.cucumber.testng.ICucumberFormatter;
 import com.stratio.qa.cucumber.testng.ICucumberReporter;
 import com.stratio.qa.specs.BaseGSpec;
+import com.stratio.qa.specs.HookGSpec;
 import gherkin.formatter.model.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -78,7 +79,10 @@ public class CukesGHooks extends BaseGSpec implements ICucumberReporter, ICucumb
     @Override
     public void scenario(Scenario scenario) {
         this.scenario = scenario;
-        logger.info("Feature/Scenario: {}/{} ", feature.getName(), scenario.getName());
+        if (HookGSpec.loggerEnabled) {
+            logger.info("Feature/Scenario: {}/{} ", feature.getName(), scenario.getName());
+        }
+        HookGSpec.loggerEnabled = true;
         ThreadProperty.set("scenario", scenario.getName());
     }
 
@@ -92,7 +96,9 @@ public class CukesGHooks extends BaseGSpec implements ICucumberReporter, ICucumb
 
     @Override
     public void endOfScenarioLifeCycle(Scenario scenario) {
-        logger.info(""); //empty line to split scenarios
+        if (HookGSpec.loggerEnabled) {
+            logger.info(""); //empty line to split scenarios
+        }
     }
 
     @Override
